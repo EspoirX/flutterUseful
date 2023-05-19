@@ -108,3 +108,22 @@ UnconstrainedBox(
 ```
 可以轻松实现如下效果：
 <img src="https://s2.loli.net/2023/05/19/UHbatM4GhWj2JLn.png" />
+
+1. **TagWidget**  
+Tag 控件的使用很常见，找了一些开源库，发现都写的挺复杂，其实我只想要基本的 tag 加上可以单选多选等功能就行，如果你也
+只是要这些，不妨试试 [TagWidget](https://github.com/EspoirX/flutterUseful/blob/main/lib/widgets/TagWidget.dart)
+
+为了将单选多选等封装进去，TagWidget要使用固定的 Bean TagInfo：
+```dart
+class TagInfo {
+  final String title; //文案
+  dynamic customData; //自定义内容
+  int index = 0;      //下标
+  bool isSelect = false; //是否选中
+  TagInfo(this.title, {this.isSelect = false});
+}
+```
+既然上面我们已经有了 WrapText，那么只要用 Wrap 包住它，tab 功能就实现了。  
+基本思路就是传入一个数据 List，然后根据 List 循环实现 children，然后传给 Wrap。
+可以轻松实现如下效果：
+<img src="https://s2.loli.net/2023/05/19/SsGFZpmN8624X3e.png" />
