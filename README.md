@@ -1,8 +1,21 @@
 # flutterUseful
 记录日常开发中flutter相关的东西
 
+## 目录
+- [FlutterBoost 相关](#FlutterBoost 相关)
+  - [原生第一次打开 flutter 页面时，会出现短暂黑屏问题](#使用 FlutterBoost 由原生第一次打开 flutter 页面时，会出现短暂黑屏)
+  - [原生转跳 Flutter 界面时大概率出现页面卡住问题](#原生转跳 Flutter 界面时大概率出现页面卡住问题)
+- [日常自定义控件](#日常自定义控件)
+  - [WrapText](#TagWidget)
+  - [TagWidget](#TagWidget)
+  - [SwitchWidget](#SwitchWidget)
+- [悬浮输入框](#悬浮输入框)
+- [Dio 相关](#Dio 相关)
+  - [通过 Dio 把请求转发到原生端](#通过 Dio 把请求转发到原生端)
+  - [Dio 下载封装](#Dio 下载封装)
+
 ## FlutterBoost 相关
-1. **使用 FlutterBoost 由原生第一次打开 flutter 页面时，会出现短暂黑屏**  
+### 使用 FlutterBoost 由原生第一次打开 flutter 页面时，会出现短暂黑屏
 解决方法：  
 继承 FlutterBoostActivity ，重写 provideSplashScreen 方法。
 ```kotlin
@@ -34,7 +47,7 @@ class ASplashScreen : SplashScreen {
 ```
 这样，第一次打开时就会显示白色界面，不会显示黑屏.
 
-2. **原生转跳 Flutter 界面时大概率出现页面卡住问题**  
+### 原生转跳 Flutter 界面时大概率出现页面卡住问题
 解决方法：   
 在 main.dart 中重写 WidgetsFlutterBinding
 ```dart
