@@ -132,5 +132,5 @@ class TagInfo {
 开关效果虽然有现成的控件，但是它不能自定义效果，找了开源库发现他们都是复制一份系统的然后自己修改，但是太复杂了，我看不懂，所以只能自己搞。  
 如果你不需要滑动，只需要点击来控制开关的话，可以试试  [SwitchWidget](https://github.com/EspoirX/flutterUseful/blob/main/lib/widgets/SwitchWidget.dart)  
 思路就是用 Stack 来包住 2 个 Widget，一个是底部滑块，一个是圆形按钮，然后通过 margin 控制按钮位置，再加上 AnimatedContainer 给点动画  
-可以轻松实现如下效果：
+可以轻松实现如下效果：  
 <img src="https://s2.loli.net/2023/05/19/Gcz8L1wtYjhvC2X.png" />
