@@ -77,7 +77,7 @@ void main() {
 
 ## 日常自定义控件
 
-1. **WrapText**  
+###  WrapText
 开发中经常用到的效果就是 **一个文本，然后可以设置背景，边框圆角等等** 比如按钮什么的。通常就使用 Container 搭配 Text  
 但是Container默认宽度是全屏，我只想让他自适应宽度，那么可以在外包一层 UnconstrainedBox
 ```dart
@@ -109,7 +109,7 @@ UnconstrainedBox(
 可以轻松实现如下效果：
 <img src="https://s2.loli.net/2023/05/19/UHbatM4GhWj2JLn.png" />
 
-1. **TagWidget**  
+### TagWidget
 Tag 控件的使用很常见，找了一些开源库，发现都写的挺复杂，其实我只想要基本的 tag 加上可以单选多选等功能就行，如果你也
 只是要这些，不妨试试 [TagWidget](https://github.com/EspoirX/flutterUseful/blob/main/lib/widgets/TagWidget.dart)
 
