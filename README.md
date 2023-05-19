@@ -3,8 +3,8 @@
 
 ## FlutterBoost 相关
 1. **使用 FlutterBoost 由原生第一次打开 flutter 页面时，会出现短暂黑屏**  
- 解决方法：
- 继承 FlutterBoostActivity ，重写 provideSplashScreen 方法。
+解决方法：  
+继承 FlutterBoostActivity ，重写 provideSplashScreen 方法。
 ```kotlin
 class MyFlutterBoostActivity : FlutterBoostActivity() {
     override fun provideSplashScreen(): SplashScreen? {
@@ -34,7 +34,7 @@ class ASplashScreen : SplashScreen {
 ```
 这样，第一次打开时就会显示白色界面，不会显示黑屏.
 
-2. **原生转跳 Flutter 界面时大概率出现页面卡住问题**
+2. **原生转跳 Flutter 界面时大概率出现页面卡住问题**  
 解决方法：   
 在 main.dart 中重写 WidgetsFlutterBinding
 ```dart
