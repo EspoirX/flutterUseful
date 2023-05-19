@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutteruseful/download/DownloadOptions.dart';
+import 'package:flutteruseful/download/Flowder.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,6 +53,19 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    Flowder.download(
+        "url",
+        DownloadOptions(childDir: "img", fileName: "1.jpg")
+          ..progress = (current, total) {
+             //...
+          }
+          ..onSuccess = (path) {
+            //...
+          }
+          ..onFail = (code, msg) {
+            //...
+          });
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
