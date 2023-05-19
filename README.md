@@ -87,7 +87,7 @@ UnconstrainedBox(
   )
 );
 ```
-那么包装一下就成了 WrapText
+那么包装一下就成了 [WrapText](https://github.com/EspoirX/flutterUseful/blob/main/lib/widgets/WrapText.dart)
 ```dart
   const WrapText(
     {Key? key,
