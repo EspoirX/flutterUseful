@@ -316,3 +316,88 @@ Flowder.download(
 默认的下载路径是沙盒路径，保存路径是 沙盒/childDir/fileName  
 所以只需要传入下载url，childDir 和 fileName 即可。如果要自定义路径，则传入参数 file，file随你定路径。  
 下载多个文件可在 for 循环里面调用
+
+
+## 自定义Widget相关
+
+<img src="https://s2.loli.net/2023/05/19/GYxKpOFJubvd5aQ.png" />
+
+**Widget 三大类**
+作为『 Widget Tree 』的叶节点，也是最小的 UI 表达单元，一般继承自 LeafRenderObjectWidget；  
+有一个子节点 ( Single Child )，一般继承自 SingleChildRenderObjectWidget；  
+有多个子节点 ( Multi Child )，一般继承自 MultiChildRenderObjectWidget。  
+
+对于RenderBox系列来说，如果要自定义子类，根据自定义子类子节点模型的不同需要有不同的处理：
+
+自定义子类本身是『 Render Tree 』的叶子节点，一般直接继承自RenderBox；  
+
+有一个子节点 (Single Child)，且子节点属于RenderBox系列：  
+如果其自身的 size 完全 匹配 子节点的 size，则可以选择继承自RenderProxyBox(如：RenderOffstage)；
+如果其自身的 size 大于子节点的 size，则可以选择继承自RenderShiftedBox(如：RenderPadding)；
+
+有一个子节点 (Single Child)，但子节点不属于RenderBox系列，自定义子类可以 with RenderObjectWithChildMixin，其提供了管理一个子节点的模型；  
+
+有多个子节点 (Multi Child)，自定义子类可以 with ContainerRenderObjectMixin、RenderBoxContainerDefaultsMixin，前者提供了管理多个子节点的模型，后者提供了基于ContainerRenderObjectMixin的一些默认实现
+
+自定义 Widget 就是重写 createRenderObject 方法。
+
+开发步骤：
+1. 根据需要继承对应的 ObjectWidget 并重写 createRenderObject 方法
+```dart
+class ScoreStar extends LeafRenderObjectWidget {
+  final Color backgroundColor;
+  final Color foregroundColor;
+  final double score;
+
+  ScoreStar(this.backgroundColor, this.foregroundColor, this.score, {super.key});
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return RenderScoreStar(backgroundColor, foregroundColor, score);
+  }
+}
+```
+
+2. 继承 RenderObject , 一般会继承 RenderBox 作为 createRenderObject 方法的返回，同时传参进去
+```dart
+class RenderScoreStar extends RenderBox {}
+```
+
+3. 根据参数编写 get set 方法，并调用 markNeedsPaint
+```dart
+class RenderScoreStar extends RenderBox {
+  Color _backgroundColor;
+  //...
+  RenderScoreStar(this._backgroundColor, this._foregroundColor, this._score);
+
+  Color get backgroundColor => _backgroundColor;
+  set backgroundColor(Color color) {
+    _backgroundColor = color;
+    markNeedsLayout();
+  }
+  //...
+}
+```
+如果 不需要引起 layout 变化，则调用 markNeedsPaint，会引起 re-paint ，否则调用 markNeedsLayout
+
+4. 重写 updateRenderObject 方法更新参数，其中参数 renderObject 改成自定义 RenderBox 的类型
+```dart
+  @override
+  void updateRenderObject(BuildContext context, covariant RenderScoreStar renderObject) {
+    super.updateRenderObject(context, renderObject);
+    renderObject
+      ..backgroundColor = backgroundColor
+      ..foregroundColor = foregroundColor
+      ..score = score;
+  }
+```
+
+**sizedByParent**  
+```dart
+@override
+  bool get sizedByParent => super.sizedByParent;
+```
+如果 RenderBox 的 size 完全由约束决定，则不需要重写，如果返回 true，则需求重写 **performResize** 方法来计算 size。  
+但一般不会直接重写 performResize，而是重写 **computeDryLayout** 方法。  
+因为 RenderBox 的 performResize 方法会调用 computeDryLayout ，并将返回结果作为当前组件的大小。
+按照Flutter 框架约定，我们应该重写computeDryLayout 方法而不是 performResize 方法
