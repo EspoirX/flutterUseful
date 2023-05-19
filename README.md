@@ -2,20 +2,20 @@
 记录日常开发中flutter相关的东西
 
 ## 目录
-- [FlutterBoost 相关](#FlutterBoost 相关)
-  - [原生第一次打开 flutter 页面时，会出现短暂黑屏问题](#使用 FlutterBoost 由原生第一次打开 flutter 页面时，会出现短暂黑屏)
-  - [原生转跳 Flutter 界面时大概率出现页面卡住问题](#原生转跳 Flutter 界面时大概率出现页面卡住问题)
+- [FlutterBoost 相关](#FlutterBoost相关)
+  - [使用FlutterBoost由原生第一次打开flutter页面时出现短暂黑屏](#使用FlutterBoost由原生第一次打开flutter页面时出现短暂黑屏)
+  - [原生转跳Flutter界面时大概率出现页面卡住问题](#原生转跳Flutter界面时大概率出现页面卡住问题)
 - [日常自定义控件](#日常自定义控件)
   - [WrapText](#TagWidget)
   - [TagWidget](#TagWidget)
   - [SwitchWidget](#SwitchWidget)
 - [悬浮输入框](#悬浮输入框)
-- [Dio 相关](#Dio 相关)
-  - [通过 Dio 把请求转发到原生端](#通过 Dio 把请求转发到原生端)
-  - [Dio 下载封装](#Dio 下载封装)
+- [Dio相关](#Dio 相关)
+  - [通过Dio把请求转发到原生端](#通过 Dio 把请求转发到原生端)
+  - [Dio下载封装](#Dio 下载封装)
 
-## FlutterBoost 相关
-### 使用 FlutterBoost 由原生第一次打开 flutter 页面时，会出现短暂黑屏
+## FlutterBoost相关
+### 使用FlutterBoost由原生第一次打开flutter页面时出现短暂黑屏
 解决方法：  
 继承 FlutterBoostActivity ，重写 provideSplashScreen 方法。
 ```kotlin
@@ -47,7 +47,7 @@ class ASplashScreen : SplashScreen {
 ```
 这样，第一次打开时就会显示白色界面，不会显示黑屏.
 
-### 原生转跳 Flutter 界面时大概率出现页面卡住问题
+### 原生转跳Flutter界面时大概率出现页面卡住问题
 解决方法：   
 在 main.dart 中重写 WidgetsFlutterBinding
 ```dart
@@ -191,8 +191,8 @@ Widget build(BuildContext context) {
 Navigator.push(context, PopRoute(child: EditInputBottomWidget()));
 ```
 
-## Dio 相关
-### 通过 Dio 把请求转发到原生端
+## Dio相关
+### 通过Dio把请求转发到原生端
 Dio 里面有个 HttpClientAdapter，默认实现貌似是 IOHttpClientAdapter ，通过自定义实现它，即可实现请求转发：
 ```dart
 class NativeRequestClientAdapter implements HttpClientAdapter {
@@ -295,7 +295,7 @@ dio 的 post，get等请求最后都会调用 request 方法：
 随便一提，在和原生沟通的过程中 rpc 请求结果不能直接传对象，要传 byte（对于代码来说就是 dynamic 类型），
 然后在接受后再组装成对象。
 
-### Dio 下载封装
+### Dio下载封装
 找了个开源库 [flowder](https://github.com/Crdzbird/flowder)  ，感觉还行，然后自己修改了一下变得更好用，得到新的下载框架
 [Flowder](https://github.com/EspoirX/flutterUseful/blob/main/lib/download/Flowder.dart)  
 用法如下：
