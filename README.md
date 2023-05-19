@@ -322,7 +322,7 @@ Flowder.download(
 
 <img src="https://s2.loli.net/2023/05/19/GYxKpOFJubvd5aQ.png" />
 
-**Widget 三大类**
+**Widget 三大类**  
 作为『 Widget Tree 』的叶节点，也是最小的 UI 表达单元，一般继承自 LeafRenderObjectWidget；  
 有一个子节点 ( Single Child )，一般继承自 SingleChildRenderObjectWidget；  
 有多个子节点 ( Multi Child )，一般继承自 MultiChildRenderObjectWidget。  
@@ -397,7 +397,19 @@ class RenderScoreStar extends RenderBox {
 @override
   bool get sizedByParent => super.sizedByParent;
 ```
-如果 RenderBox 的 size 完全由约束决定，则不需要重写，如果返回 true，则需求重写 **performResize** 方法来计算 size。  
+如果 RenderBox 的 size 完全由约束决定，则不需要重写（默认false），如果返回 true，则需求重写 **performResize** 方法来计算 size。  
 但一般不会直接重写 performResize，而是重写 **computeDryLayout** 方法。  
 因为 RenderBox 的 performResize 方法会调用 computeDryLayout ，并将返回结果作为当前组件的大小。
 按照Flutter 框架约定，我们应该重写computeDryLayout 方法而不是 performResize 方法
+
+若 sizedByParent 设为 false，则需要重写 performLayout，并在该方法中完成 size 的计算；
+
+若重写了performLayout方法，则进而需要重写以下四个方法：  
+1. computeMaxIntrinsicWidth  用于计算一个**最小宽度**，在最终 size.width 超过该宽度时，也不会减少 size.height
+2. computeMinIntrinsicWidth  排版需要的最小宽度，若小于这个宽度内容就会被裁剪；
+3. computeMinIntrinsicHeight  //差不多
+4. computeMaxIntrinsicHeight  //差不多
+
+在一些特殊 RenderObject 排版时才会用到这些方法。其他根据 constraints 简单计算一下就行。
+
+如果需要响应用户事件，则需要重写hitTestSelf方法，并返回true。
