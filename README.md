@@ -77,7 +77,7 @@ void main() {
 
 ## 日常自定义控件
 
-1. WrapText
+1. **WrapText**  
 开发中经常用到的效果就是 **一个文本，然后可以设置背景，边框圆角等等** 比如按钮什么的。通常就使用 Container 搭配 Text  
 但是Container默认宽度是全屏，我只想让他自适应宽度，那么可以在外包一层 UnconstrainedBox
 ```dart
