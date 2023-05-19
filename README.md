@@ -74,3 +74,37 @@ void main() {
 }
 ```
 问题原因和方案来自：https://www.6hu.cc/archives/92444.html 简单来说就是生命周期问题
+
+## 日常自定义控件
+
+1. WrapText
+开发中经常用到的效果就是 **一个文本，然后可以设置背景，边框圆角等等** 比如按钮什么的。通常就使用 Container 搭配 Text  
+但是Container默认宽度是全屏，我只想让他自适应宽度，那么可以在外包一层 UnconstrainedBox
+```dart
+UnconstrainedBox(
+  child: Container(
+    child: Text(),
+  )
+);
+```
+那么包装一下就成了 WrapText
+```dart
+  const WrapText(
+    {Key? key,
+    this.width,   //宽度，不填就自适应
+    this.height,  //高度，不填就自适应
+    this.margin,
+    this.padding,
+    this.bgColor, //背景色
+    this.border,  //边框
+    this.radius,  //圆角
+    this.onTap,   //点击事件
+    this.child,   //除了默认 Text 外，还可以自定义 child
+    this.alignment = Alignment.center, //child的对齐方式
+    this.text = "",  //文本
+    this.textColor = "#000000", //文本颜色
+    this.textSize = 14 //文本大小
+    })  : super(key: key); 
+```
+可以轻松实现如下效果：
+<img src="https://s2.loli.net/2023/05/19/UHbatM4GhWj2JLn.png">
