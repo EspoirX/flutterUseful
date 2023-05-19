@@ -137,8 +137,8 @@ class TagInfo {
 
 
 ## 悬浮输入框
-下面这个效果如何实现，是弹窗？是控制显示隐藏？：
-<img src="https://s2.loli.net/2023/05/19/ydNuGM6CEI9kDhJ.png" height=200 />
+下面这个效果如何实现，是弹窗？是控制显示隐藏？：  
+<img src="https://s2.loli.net/2023/05/19/ydNuGM6CEI9kDhJ.png" height=250 />
 
 刚接触确实有点懵逼，但找了很久在一简书上找到了方法，链接忘了，所以这里记一下:  
 思路是打开一个新的页面，但是这个页面的打开方式是通过 **PopupRoute**  
