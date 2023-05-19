@@ -134,3 +134,46 @@ class TagInfo {
 思路就是用 Stack 来包住 2 个 Widget，一个是底部滑块，一个是圆形按钮，然后通过 margin 控制按钮位置，再加上 AnimatedContainer 给点动画  
 可以轻松实现如下效果：  
 <img src="https://s2.loli.net/2023/05/19/Gcz8L1wtYjhvC2X.png" />
+
+
+## 悬浮输入框
+下面这个效果如何实现，是弹窗？是控制显示隐藏？：
+<img src="https://s2.loli.net/2023/05/19/ydNuGM6CEI9kDhJ.png" />
+
+刚接触确实有点懵逼，但找了很久在一简书上找到了方法，链接忘了，所以这里记一下:  
+思路是打开一个新的页面，但是这个页面的打开方式是通过 **PopupRoute**  
+首先继承 PopupRoute 实现一些自定义效果，比如动画等，当然你也可以直接用：
+```dart
+class PopRoute extends PopupRoute {
+  final Duration _duration = const Duration(milliseconds: 300);
+  Widget child;
+  PopRoute({required this.child});
+  @override
+  Color? get barrierColor => null;
+  @override
+  bool get barrierDismissible => true;
+  @override
+  String? get barrierLabel => null;
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+    return child;
+  }
+  @override
+  Duration get transitionDuration => _duration;
+}
+```
+
+然后你自己写一个 StatefulWidget 实现好 UI 内容，注意的是，弹窗底部半透明背景也是需要自己实现的：
+```dart
+@override
+Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0x99000000),
+      body: Column(),
+    );
+}
+```
+然后通过 PopupRoute 显示出来即可：
+```dart
+Navigator.push(context, PopRoute(child: EditInputBottomWidget()));
+```
